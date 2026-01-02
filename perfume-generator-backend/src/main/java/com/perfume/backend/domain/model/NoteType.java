@@ -1,5 +1,15 @@
 package com.perfume.backend.domain.model;
 
-public class NoteType {
-    
+/**
+ * Représente la position d'une note dans la pyramide olfactive.
+ *
+ * TETE  : notes volatiles, perception immédiate
+ * COEUR : identité du parfum
+ * FOND  : tenue et profondeur
+ */
+public enum NoteType {
+
+    TETE,
+    COEUR,
+    FOND
 }
