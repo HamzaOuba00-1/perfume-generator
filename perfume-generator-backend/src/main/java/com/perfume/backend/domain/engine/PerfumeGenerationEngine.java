@@ -40,14 +40,13 @@ public class PerfumeGenerationEngine {
     // =========================
     private void validateStructure(List<EssentialOil> oils) {
 
-        boolean hasTete  = oils.stream().anyMatch(o -> o.getNoteType() == NoteType.TETE);
+        boolean hasTete = oils.stream().anyMatch(o -> o.getNoteType() == NoteType.TETE);
         boolean hasCoeur = oils.stream().anyMatch(o -> o.getNoteType() == NoteType.COEUR);
-        boolean hasFond  = oils.stream().anyMatch(o -> o.getNoteType() == NoteType.FOND);
+        boolean hasFond = oils.stream().anyMatch(o -> o.getNoteType() == NoteType.FOND);
 
         if (!hasTete || !hasCoeur || !hasFond) {
             throw new BusinessException(
-                "Le parfum doit contenir au moins une note de tête, de cœur et de fond."
-            );
+                    "Le parfum doit contenir au moins une note de tête, de cœur et de fond.");
         }
     }
 
@@ -73,8 +72,8 @@ public class PerfumeGenerationEngine {
     // DISTRIBUTION INTERNE
     // =========================
     private void distribute(Map<EssentialOil, Integer> result,
-                            List<EssentialOil> oils,
-                            int totalPercent) {
+            List<EssentialOil> oils,
+            int totalPercent) {
 
         int totalWeight = oils.stream()
                 .mapToInt(EssentialOil::getPower)
@@ -82,8 +81,7 @@ public class PerfumeGenerationEngine {
 
         for (EssentialOil oil : oils) {
 
-            int calculated =
-                (oil.getPower() * totalPercent) / totalWeight;
+            int calculated = (oil.getPower() * totalPercent) / totalWeight;
 
             int finalPercent = Math.min(calculated, oil.getMaxPercent());
 
@@ -100,15 +98,15 @@ public class PerfumeGenerationEngine {
                 .mapToInt(Integer::intValue)
                 .sum();
 
-        if (total == 100) {
+        int difference = 100 - total;
+
+        if (difference == 0) {
             return;
         }
 
-        double factor = 100.0 / total;
-
-        for (Map.Entry<EssentialOil, Integer> entry : result.entrySet()) {
-            int normalized = (int) Math.round(entry.getValue() * factor);
-            entry.setValue(normalized);
-        }
+        // Corrige sur la première huile (déterministe)
+        EssentialOil firstKey = result.keySet().iterator().next();
+        result.put(firstKey, result.get(firstKey) + difference);
     }
+
 }
