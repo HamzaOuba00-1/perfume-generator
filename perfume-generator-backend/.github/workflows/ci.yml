@@ -2,13 +2,9 @@ name: Backend CI - Perfume Generator
 
 on:
   push:
-    branches:
-      - main
-      - develop
+
   pull_request:
-    branches:
-      - main
-      - develop
+
 
 jobs:
   build-and-test:
