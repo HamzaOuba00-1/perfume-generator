@@ -1,5 +1,12 @@
 package com.perfume.backend.exception;
 
-public class BusinessException {
-    
+/**
+ * Exception métier levée lorsque
+ * une règle fonctionnelle est violée.
+ */
+public class BusinessException extends RuntimeException {
+
+    public BusinessException(String message) {
+        super(message);
+    }
 }
