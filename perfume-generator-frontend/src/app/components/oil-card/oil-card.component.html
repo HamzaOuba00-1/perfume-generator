@@ -1,0 +1,38 @@
+<div
+  class="oil-card"
+  [class.selected]="selected"
+  [style.--accent]="accentColor"
+  (click)="onToggle()"
+>
+
+  <!-- Top accent -->
+  <div class="accent"></div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <h3 class="name">{{ oil.name }}</h3>
+    <span class="note">{{ noteLabel }}</span>
+
+    <div class="meta">
+      <div class="meta-line">
+        <span class="icon">⚡</span>
+        <span>{{ powerLabel }}</span>
+      </div>
+
+      <div class="meta-line">
+        <span class="icon">🧪</span>
+        <span>{{ oil.maxPercent }} % max</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span class="action">
+      {{ selected ? 'Sélectionnée' : 'Sélectionner' }}
+    </span>
+  </div>
+
+</div>

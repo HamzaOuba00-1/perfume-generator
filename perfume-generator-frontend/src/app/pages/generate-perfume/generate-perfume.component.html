@@ -1,0 +1,37 @@
+<!-- HEADER -->
+<header class="page-header">
+  <h1>Perfume Generator</h1>
+  <p>Choisissez vos huiles essentielles</p>
+
+  <button class="rules-btn" (click)="openRules()">
+    Règles & limites
+  </button>
+</header>
+
+<!-- SCROLLABLE CONTENT -->
+<section class="cards-container">
+  <div class="cards-grid">
+    <app-oil-card
+      *ngFor="let oil of oils"
+      [oil]="oil"
+      [selected]="isSelected(oil)"
+      (toggle)="toggleOil(oil)">
+    </app-oil-card>
+  </div>
+</section>
+
+<!-- FIXED ACTION BUTTON -->
+<footer class="fixed-action">
+  <button
+    class="generate-btn"
+    [disabled]="selectedOils.length < 3"
+    (click)="generatePerfume()"
+  >
+    Générer le parfum →
+  </button>
+</footer>
+
+<app-rules-modal
+  *ngIf="showRules"
+  (close)="closeRules()">
+</app-rules-modal>

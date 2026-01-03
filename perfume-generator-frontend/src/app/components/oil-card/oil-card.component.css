@@ -1,0 +1,98 @@
+:host {
+  --text-dark: #1f2937;
+
+  /* version éclaircie automatique de la couleur */
+  --oil-soft: color-mix(in srgb, var(--accent) 25%, white);
+  --oil-mid:  color-mix(in srgb, var(--accent) 55%, white);
+}
+
+/* ================= CARD ================= */
+.oil-card {
+  width: 220px;
+  height: 220px;
+  padding: 22px;
+  border-radius: 24px;
+
+  background: linear-gradient(
+    180deg,
+    var(--oil-soft),
+    var(--oil-mid)
+  );
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+
+  transition: all 0.45s ease;
+  cursor: pointer;
+}
+
+/* Hover */
+.oil-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 30px 70px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+/* ================= CONTENT ================= */
+.content {
+  text-align: center;
+}
+
+.name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-dark);
+}
+
+.note {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* ================= META ================= */
+.meta {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-line {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+  text-align: center;
+}
+
+.action {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* ================= SELECTED ================= */
+.oil-card.selected {
+  outline: 2px solid rgba(0,0,0,0.18);
+  transform: translateY(-10px);
+}
+
+.oil-card.selected .action {
+  opacity: 1;
+  font-weight: 700;
+}

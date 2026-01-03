@@ -1,0 +1,70 @@
+/* PAGE BACKGROUND */
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7f8dd1, #7a1ecf);
+  color: white;
+}
+
+/* HEADER */
+.page-header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.page-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.rules-btn {
+  margin-top: 16px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.6);
+  color: white;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* SCROLL ZONE */
+.cards-container {
+  height: calc(100vh - 260px);
+  overflow-y: auto;
+  padding: 20px 40px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+/* FIXED FOOTER */
+.fixed-action {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+}
+
+.generate-btn {
+  background: #2dff4f;
+  color: black;
+  font-size: 1.2rem;
+  font-weight: 800;
+  padding: 18px 32px;
+  border-radius: 40px;
+  border: none;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.generate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

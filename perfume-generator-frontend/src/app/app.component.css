@@ -1,0 +1,7 @@
+/* PAGE BACKGROUND */
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7f8dd1, #7a1ecf);
+  color: white;
+}

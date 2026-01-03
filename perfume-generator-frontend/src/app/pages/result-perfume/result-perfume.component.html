@@ -1,0 +1,16 @@
+<div *ngIf="result; else noResult" class="result-page">
+
+  <h1>Votre parfum</h1>
+
+  <div *ngFor="let item of result.composition">
+    {{ item.oilName }} — {{ item.percentage }} %
+  </div>
+
+  <button (click)="goBack()">← Modifier la sélection</button>
+
+</div>
+
+<ng-template #noResult>
+  <p>Aucune recette générée.</p>
+  <button (click)="goBack()">Retour</button>
+</ng-template>
