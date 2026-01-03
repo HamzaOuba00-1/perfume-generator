@@ -2,9 +2,7 @@ name: Backend CI - Perfume Generator
 
 on:
   push:
-
   pull_request:
-
 
 jobs:
   build-and-test:
@@ -22,4 +20,5 @@ jobs:
           cache: maven
 
       - name: Build and run tests
+        working-directory: perfume-generator-backend
         run: mvn clean test
