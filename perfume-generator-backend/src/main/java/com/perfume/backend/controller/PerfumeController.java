@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Controller REST pour la génération de parfums.
  */
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/perfumes")
 public class PerfumeController {
