@@ -1,6 +1,19 @@
-INSERT INTO essential_oil (name, note_type, power, max_percent) VALUES
-('Citron', 'TETE', 3, 30),
-('Bergamote', 'TETE', 3, 25),
-('Lavande', 'COEUR', 2, 35),
-('Patchouli', 'FOND', 1, 20),
-('Vanille', 'FOND', 2, 25);
+INSERT INTO essential_oil (name, note_type, power, max_percent, image_url) VALUES
+('Citron', 'TETE', 3, 30, 'citron.png'),
+('Bergamote', 'TETE', 3, 25, 'bergamote.png'),
+('Lavande', 'COEUR', 2, 35, 'lavande.png'),
+('Patchouli', 'FOND', 1, 20, 'patchouli.png'),
+('Patchoula', 'FOND', 2, 10, 'patchoauli.png'),
+('Rose', 'COEUR', 3, 30, 'rose.png'),
+('Jasmin', 'COEUR', 2, 20, 'jasmin.png'),
+('Santal', 'FOND', 3, 15, 'santal.png'),
+('Ylang-Ylang', 'COEUR', 1, 25, 'ylang-ylang.png'),
+('Menthe', 'TETE', 2, 20, 'menthe.png'),
+('Eucalyptus', 'TETE', 2, 30, 'eucalyptus.png'),
+('Cèdre', 'FOND', 2, 20, 'cedre.png'),
+('Vétiver', 'FOND', 3, 15, 'vetiver.png'),
+('Géranium', 'COEUR', 2, 25, 'geranium.png'),
+('Orange Douce', 'TETE', 3, 30, 'orange-douce.png'),
+('Camomille', 'COEUR', 1, 20, 'camomille.png'),
+('Romarin', 'TETE', 2, 25, 'romarin.png'),
+('Thym', 'TETE', 1, 15, 'thym.png');

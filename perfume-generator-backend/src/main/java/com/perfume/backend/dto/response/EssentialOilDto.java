@@ -12,17 +12,20 @@ public class EssentialOilDto {
     private NoteType noteType;
     private int power;
     private int maxPercent;
+    private String imageUrl;
 
     public EssentialOilDto(Long id,
                            String name,
                            NoteType noteType,
                            int power,
-                           int maxPercent) {
+                           int maxPercent,
+                           String imageUrl) {
         this.id = id;
         this.name = name;
         this.noteType = noteType;
         this.power = power;
         this.maxPercent = maxPercent;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -43,5 +46,9 @@ public class EssentialOilDto {
 
     public int getMaxPercent() {
         return maxPercent;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 }

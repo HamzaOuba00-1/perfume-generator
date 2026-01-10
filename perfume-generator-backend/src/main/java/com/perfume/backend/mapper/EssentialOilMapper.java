@@ -13,7 +13,8 @@ public final class EssentialOilMapper {
                 oil.getName(),
                 oil.getNoteType(),
                 oil.getPower(),
-                oil.getMaxPercent()
+                oil.getMaxPercent(),
+                oil.getImageUrl()
         );
     }
 }

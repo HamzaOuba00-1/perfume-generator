@@ -47,15 +47,23 @@ public class EssentialOil {
     // Constructeurs
     // =====================
 
+
+    /**
+     * URL ou chemin de l'image de l'huile essentielle
+     */
+    @Column(nullable = false)
+    private String imageUrl;
+
     protected EssentialOil() {
         // requis par JPA
     }
 
-    public EssentialOil(String name, NoteType noteType, int power, int maxPercent) {
+    public EssentialOil(String name, NoteType noteType, int power, int maxPercent, String imageUrl) {
         this.name = name;
         this.noteType = noteType;
         this.power = power;
         this.maxPercent = maxPercent;
+        this.imageUrl = imageUrl;
     }
 
     // =====================
@@ -80,5 +88,9 @@ public class EssentialOil {
 
     public int getMaxPercent() {
         return maxPercent;
+    }
+    
+    public String getImageUrl() {
+        return imageUrl;
     }
 }
