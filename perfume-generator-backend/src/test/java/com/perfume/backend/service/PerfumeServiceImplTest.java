@@ -26,7 +26,7 @@ class PerfumeServiceImplTest {
 
         PerfumeService service = new PerfumeServiceImpl(repository, engine);
 
-        EssentialOil citron = new EssentialOil("Citron", NoteType.TETE, 3, 30);
+        EssentialOil citron = new EssentialOil("Citron", NoteType.TETE, 3, 30, "citron.png");
         PerfumeRecipe recipe = new PerfumeRecipe(Map.of(citron, 100));
 
         Mockito.when(repository.findByNameIgnoreCase("Citron"))
