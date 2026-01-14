@@ -24,9 +24,9 @@ class PerfumeGenerationEngineTest {
     void shouldGenerateValidPerfumeRecipe() {
 
         List<EssentialOil> oils = List.of(
-                new EssentialOil("Citron", NoteType.TETE, 3, 30, "citron.png"),
-                new EssentialOil("Lavande", NoteType.COEUR, 2, 35, "lavande.png"),
-                new EssentialOil("Patchouli", NoteType.FOND, 1, 20, "patchouli.png")
+                new EssentialOil("Citron", NoteType.TOP, 3, 30, "citron.png"),
+                new EssentialOil("Lavande", NoteType.HEART, 2, 35, "lavande.png"),
+                new EssentialOil("Patchouli", NoteType.BASE, 1, 20, "patchouli.png")
         );
 
         PerfumeRecipe recipe = engine.generate(oils);
@@ -40,8 +40,8 @@ class PerfumeGenerationEngineTest {
     void shouldThrowExceptionWhenMissingNoteType() {
 
         List<EssentialOil> oils = List.of(
-                new EssentialOil("Citron", NoteType.TETE, 3, 30, "citron.png"),
-                new EssentialOil("Lavande", NoteType.COEUR, 2, 35, "lavande.png")
+                new EssentialOil("Citron", NoteType.TOP, 3, 30, "citron.png"),
+                new EssentialOil("Lavande", NoteType.HEART, 2, 35, "lavande.png")
         );
 
         assertThrows(BusinessException.class,
