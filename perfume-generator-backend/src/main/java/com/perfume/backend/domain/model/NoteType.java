@@ -9,7 +9,7 @@ package com.perfume.backend.domain.model;
  */
 public enum NoteType {
 
-    TETE,
-    COEUR,
-    FOND
+    TOP,
+    HEART,
+    BASE
 }
