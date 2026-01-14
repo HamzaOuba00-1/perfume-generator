@@ -93,4 +93,24 @@ public class EssentialOil {
     public String getImageUrl() {
         return imageUrl;
     }
+
+    // =====================
+    // Setters contrôlés
+    // =====================
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setNoteType(NoteType noteType) {
+        this.noteType = noteType;
+    }
+    public void setPower(int power) {
+        this.power = power;
+    }
+    public void setMaxPercent(int maxPercent) {
+        this.maxPercent = maxPercent;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+    
 }
