@@ -26,9 +26,9 @@ public class PerfumeGenerationEngine {
 
         Map<EssentialOil, Integer> result = new LinkedHashMap<>();
 
-        distribute(result, grouped.get(NoteType.TETE), TETE_PERCENT);
-        distribute(result, grouped.get(NoteType.COEUR), COEUR_PERCENT);
-        distribute(result, grouped.get(NoteType.FOND), FOND_PERCENT);
+        distribute(result, grouped.get(NoteType.TOP), TETE_PERCENT);
+        distribute(result, grouped.get(NoteType.HEART), COEUR_PERCENT);
+        distribute(result, grouped.get(NoteType.BASE), FOND_PERCENT);
 
         normalize(result);
 
@@ -40,11 +40,11 @@ public class PerfumeGenerationEngine {
     // =========================
     private void validateStructure(List<EssentialOil> oils) {
 
-        boolean hasTete = oils.stream().anyMatch(o -> o.getNoteType() == NoteType.TETE);
-        boolean hasCoeur = oils.stream().anyMatch(o -> o.getNoteType() == NoteType.COEUR);
-        boolean hasFond = oils.stream().anyMatch(o -> o.getNoteType() == NoteType.FOND);
+        boolean hasTop = oils.stream().anyMatch(o -> o.getNoteType() == NoteType.TOP);
+        boolean hasHeart = oils.stream().anyMatch(o -> o.getNoteType() == NoteType.HEART);
+        boolean hasBase = oils.stream().anyMatch(o -> o.getNoteType() == NoteType.BASE);
 
-        if (!hasTete || !hasCoeur || !hasFond) {
+        if (!hasTop || !hasHeart || !hasBase) {
             throw new BusinessException(
                     "Le parfum doit contenir au moins une note de tête, de cœur et de fond.");
         }
