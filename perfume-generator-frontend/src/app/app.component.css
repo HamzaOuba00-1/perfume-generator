@@ -1,7 +1,46 @@
-/* PAGE BACKGROUND */
+/* PAGE BACKGROUND — SPECTRAL STYLE */
 :host {
-  display: block;
+  position: relative;
   min-height: 100vh;
-  background: linear-gradient(135deg, #7f8dd1, #7a1ecf);
-  color: white;
+  display: block;
+
+  /* 🎨 Spectral gradient */
+  background:
+    radial-gradient(
+      1200px 600px at 15% 30%,
+      rgba(255, 170, 80, 0.55),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 80% 20%,
+      rgba(255, 215, 120, 0.45),
+      transparent 65%
+    ),
+    radial-gradient(
+      1000px 700px at 50% 85%,
+      rgba(255, 190, 70, 0.55),
+      transparent 70%
+    ),
+    linear-gradient(
+      120deg,
+      #1c1b18 0%,
+      #2a241c 35%,
+      #3a2f1f 65%,
+      #1b1a17 100%
+    );
+
+  color: #494541;
+  overflow: hidden;
+}
+
+/* 🌾 Grain / Noise layer */
+:host::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+
+  mix-blend-mode: soft-light;
 }
