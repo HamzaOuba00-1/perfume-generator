@@ -17,6 +17,7 @@ class PerfumeControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @SuppressWarnings("null")
     @Test
     void shouldGeneratePerfumeSuccessfully() throws Exception {
 
@@ -34,6 +35,7 @@ class PerfumeControllerIntegrationTest {
                 .andExpect(jsonPath("$.composition.length()").value(5));
     }
 
+    @SuppressWarnings("null")
     @Test
     void shouldReturnBusinessErrorWhenInvalidStructure() throws Exception {
 
