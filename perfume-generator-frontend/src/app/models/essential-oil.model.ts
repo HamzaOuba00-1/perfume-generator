@@ -1,7 +1,8 @@
 export interface EssentialOil {
   id: number;
   name: string;
-  noteType: 'TETE' | 'COEUR' | 'FOND';
+  noteType: 'TOP' | 'HEART' | 'BASE';
   power: number;
   maxPercent: number;
+  imageUrl: string;
 }
