@@ -1,38 +1,45 @@
 <div
   class="oil-card"
   [class.selected]="selected"
-  [style.--accent]="accentColor"
+  role="button"
+  tabindex="0"
+  [attr.aria-pressed]="selected"
   (click)="onToggle()"
 >
+  <div class="inner">
+    <!-- Image -->
+    <div class="hero">
+      <img
+        [src]="imageSrc"
+        [alt]="oil.name"
+        loading="lazy"
+      />
 
-  <!-- Top accent -->
-  <div class="accent"></div>
-
-  <!-- Content -->
-  <div class="content">
+    </div>
 
     <h3 class="name">{{ oil.name }}</h3>
-    <span class="note">{{ noteLabel }}</span>
+
+    <div class="badge">{{ noteLabel }}</div>
 
     <div class="meta">
       <div class="meta-line">
-        <span class="icon">⚡</span>
+        <mat-icon class="icon" fontIcon="bolt"></mat-icon>
         <span>{{ powerLabel }}</span>
       </div>
 
       <div class="meta-line">
-        <span class="icon">🧪</span>
+        <mat-icon class="icon" fontIcon="science"></mat-icon>
         <span>{{ oil.maxPercent }} % max</span>
       </div>
     </div>
 
+    <button
+      class="cta"
+      type="button"
+      (click)="$event.stopPropagation(); onToggle()"
+    >
+      <mat-icon *ngIf="selected" class="cta-ico" fontIcon="check"></mat-icon>
+      {{ selected ? 'sélectionnée' : 'selectionner' }}
+    </button>
   </div>
-
-  <!-- Footer -->
-  <div class="footer">
-    <span class="action">
-      {{ selected ? 'Sélectionnée' : 'Sélectionner' }}
-    </span>
-  </div>
-
 </div>
