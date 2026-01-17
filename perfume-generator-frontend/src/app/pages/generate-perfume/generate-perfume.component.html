@@ -1,37 +1,25 @@
-<!-- HEADER -->
-<header class="page-header">
-  <h1>Perfume Generator</h1>
-  <p>Choisissez vos huiles essentielles</p>
-
-  <button class="rules-btn" (click)="openRules()">
-    Règles & limites
-  </button>
-</header>
-
-<!-- SCROLLABLE CONTENT -->
-<section class="cards-container">
-  <div class="cards-grid">
-    <app-oil-card
-      *ngFor="let oil of oils"
-      [oil]="oil"
-      [selected]="isSelected(oil)"
-      (toggle)="toggleOil(oil)">
-    </app-oil-card>
-  </div>
+<!-- HERO -->
+<section id="home">
+  <app-hero></app-hero>
 </section>
 
-<!-- FIXED ACTION BUTTON -->
-<footer class="fixed-action">
-  <button
-    class="generate-btn"
-    [disabled]="selectedOils.length < 3"
-    (click)="generatePerfume()"
-  >
-    Générer le parfum →
-  </button>
-</footer>
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <app-explain-system></app-explain-system>
+</section>
 
-<app-rules-modal
-  *ngIf="showRules"
-  (close)="closeRules()">
-</app-rules-modal>
+<!-- START / SELECT OILS -->
+<section id="start">
+  <app-oil-selector
+    [oils]="oils"
+    [selectedOils]="selectedOils"
+    (toggleOil)="toggleOil($event)"
+    (generate)="generatePerfume()"
+  ></app-oil-selector>
+</section>
+
+<!-- MODALS -->
+<app-generation-conditions-modal
+  *ngIf="showConditionsModal"
+  (close)="showConditionsModal = false"
+></app-generation-conditions-modal>

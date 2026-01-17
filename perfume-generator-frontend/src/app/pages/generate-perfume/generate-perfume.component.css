@@ -1,70 +1,76 @@
-/* PAGE BACKGROUND */
+/* PAGE BACKGROUND — SPECTRAL STYLE */
 :host {
-  display: block;
+  position: relative;
   min-height: 100vh;
-  background: linear-gradient(135deg, #7f8dd1, #7a1ecf);
-  color: white;
+  display: block;
+
+  /* 🎨 Spectral gradient */
+  background:
+    radial-gradient(
+      1200px 600px at 15% 30%,
+      rgba(255, 170, 80, 0.55),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 80% 20%,
+      rgba(255, 215, 120, 0.45),
+      transparent 65%
+    ),
+    radial-gradient(
+      1000px 700px at 50% 85%,
+      rgba(255, 190, 70, 0.55),
+      transparent 70%
+    ),
+    linear-gradient(
+      120deg,
+      #1c1b18 0%,
+      #2a241c 35%,
+      #3a2f1f 65%,
+      #1b1a17 100%
+    );
+
+  color: #494541;
+  overflow: hidden;
 }
 
-/* HEADER */
-.page-header {
-  text-align: center;
-  padding: 40px 20px 20px;
-}
+/* 🌾 Grain / Noise layer */
+:host::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 
-.page-header h1 {
-  font-size: 3rem;
-  font-weight: 800;
-}
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
 
-.page-header p {
-  font-size: 1.2rem;
-  opacity: 0.9;
+  mix-blend-mode: soft-light;
 }
-
-.rules-btn {
-  margin-top: 16px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.6);
-  color: white;
-  padding: 8px 18px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-/* SCROLL ZONE */
-.cards-container {
-  height: calc(100vh - 260px);
-  overflow-y: auto;
-  padding: 20px 40px;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 28px;
-}
-
-/* FIXED FOOTER */
 .fixed-action {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  right: 28px;
+  bottom: 28px;
+  z-index: 20;
 }
 
 .generate-btn {
-  background: #2dff4f;
-  color: black;
-  font-size: 1.2rem;
+  background: #ddb70d;
+  color: #fefaef;
+  font-size: 1.05rem;
   font-weight: 800;
-  padding: 18px 32px;
-  border-radius: 40px;
+  padding: 16px 32px;
+  border-radius: 999px;
   border: none;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
   cursor: pointer;
+
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.generate-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 26px 60px rgba(0,0,0,0.3);
 }
 
 .generate-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
