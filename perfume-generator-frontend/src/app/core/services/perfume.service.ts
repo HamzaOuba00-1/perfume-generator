@@ -26,4 +26,17 @@ export class PerfumeService {
       request
     );
   }
+
+  /** ✅ PDF = POST + body + blob */
+  downloadPdf(payload: {
+    volume: number;
+    oils: { name: string; percent: number }[];
+  }): Observable<Blob> {
+
+    return this.http.post(
+      `${this.API_BASE}/perfumes/pdf`,
+      payload,
+      { responseType: 'blob' }
+    );
+  }
 }
