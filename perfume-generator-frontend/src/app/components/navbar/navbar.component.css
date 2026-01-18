@@ -1,0 +1,125 @@
+/* ================= NAVBAR ================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  background: linear-gradient(
+    180deg,
+    rgba(20, 20, 18, 0.82),
+    rgba(20, 20, 18, 0.62)
+  );
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Inner container */
+.nav-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ================= LOGO ================= */
+.logo {
+  background: none;
+  border: none;
+  padding: 0;
+
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: #ffffff;
+  cursor: pointer;
+
+  transition: opacity 0.2s ease;
+}
+
+.logo:hover {
+  opacity: 0.9;
+}
+
+.logo span {
+  color: #ffc74c;
+  letter-spacing: 0.08em;
+}
+
+/* ================= LINKS ================= */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.nav-links button {
+  background: none;
+  border: none;
+  padding: 4px 0;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+/* underline premium */
+.nav-links button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ffc74c,
+    transparent
+  );
+
+  opacity: 0;
+  transform: scaleX(0.6);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.nav-links button:hover {
+  color: #ffffff;
+}
+
+.nav-links button:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+
+
+/* ================= MOBILE ================= */
+@media (max-width: 900px) {
+  .nav-inner {
+    padding: 14px 22px;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .nav-links button {
+    font-size: 0.85rem;
+  }
+}

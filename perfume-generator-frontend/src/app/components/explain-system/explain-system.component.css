@@ -1,0 +1,97 @@
+.explain {
+  margin: 80px auto 40px;
+  padding: 0 24px;
+}
+
+/* SECTION HEADER */
+.explain-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.explain-header h2 {
+  margin: 0 0 10px;
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.explain-header p {
+  margin: 0;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+
+.explain-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+/* CARD */
+.explain-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 24px 22px 26px;
+
+  color: #fefaef;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+
+  /* ✅ CENTRAGE */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  margin-bottom: 80px;
+}
+
+/* ICON */
+.explain-card .icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 199, 76, 0.25);
+  color: #ffc74c;
+
+  display: grid;
+  place-items: center;
+  margin-bottom: 14px;
+}
+
+/* TITLE */
+.explain-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+/* TEXT */
+.explain-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  max-width: 260px; /* ⬅️ évite lignes trop longues */
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .explain-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .explain-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,146 @@
+/* BACKDROP */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 18, 14, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(720px, 90vw);
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  border-radius: 22px;
+  box-shadow: 0 40px 90px rgba(0,0,0,0.45);
+  color: #fefaef;
+
+  z-index: 101;
+  padding: 28px;
+}
+
+/* HEADER */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.close-btn:hover {
+  opacity: 1;
+}
+
+/* CONTENT */
+.modal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* CONDITION CARD */
+.condition-card {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  padding: 22px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.condition-card .icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: rgba(255, 199, 76, 0.25);
+  color: #ffc74c;
+
+  display: grid;
+  place-items: center;
+  margin-bottom: 14px;
+}
+
+.condition-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.condition-card p {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.condition-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 10px;
+}
+
+.condition-card li {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.condition-card .hint {
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+/* FOOTER */
+.modal-footer {
+  margin-top: 26px;
+  display: flex;
+  justify-content: center;
+}
+
+.ok-btn {
+  background: #FFC74C;
+  color: #262525;
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 12px 32px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+}
+
+.ok-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .modal-content {
+    grid-template-columns: 1fr;
+  }
+}
