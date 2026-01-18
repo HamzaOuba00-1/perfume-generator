@@ -1,0 +1,51 @@
+.oil-list {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.delete {
+  background: transparent;
+  border: none;
+  color: #c0392b;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.delete:hover {
+  text-decoration: underline;
+}
+
+.info {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.error {
+  color: #c0392b;
+  font-size: 0.85rem;
+}

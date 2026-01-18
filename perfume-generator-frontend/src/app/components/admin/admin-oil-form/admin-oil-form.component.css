@@ -1,0 +1,53 @@
+.oil-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+input, select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 12px;
+  background: #ffc74c;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success {
+  color: #2e7d32;
+  font-size: 0.85rem;
+}
+
+.error {
+  color: #c0392b;
+  font-size: 0.85rem;
+}
