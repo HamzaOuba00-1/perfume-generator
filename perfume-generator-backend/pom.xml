@@ -14,7 +14,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.perfume.generator</groupId>
+    <groupId>com.perfume.backend</groupId>
     <artifactId>perfume-generator-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>perfume-generator-backend</name>
