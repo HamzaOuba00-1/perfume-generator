@@ -1,55 +1,144 @@
-/* HERO */
+/* ================= HERO (PREMIUM) ================= */
 .hero {
   position: relative;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   align-items: center;
-  padding: 100px 100px 80px;
-  min-height: 520px;
+
+  /* Fluid spacing */
+  padding: clamp(64px, 7vw, 110px) clamp(20px, 7vw, 100px) clamp(44px, 6vw, 84px);
+  gap: clamp(24px, 4vw, 56px);
+
+  min-height: clamp(520px, 60vh, 680px);
+  isolation: isolate; /* ensures pseudo layers stay behind content */
 }
 
-/* LEFT */
+/* Premium aurora veil + vignette (subtle) */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  pointer-events: none;
+  z-index: -2;
+
+  background:
+    radial-gradient(900px 520px at 12% 30%, rgba(255, 170, 80, 0.16), transparent 62%),
+    radial-gradient(780px 520px at 76% 18%, rgba(255, 215, 120, 0.12), transparent 66%),
+    radial-gradient(980px 620px at 46% 88%, rgba(255, 190, 70, 0.14), transparent 70%),
+    radial-gradient(1100px 820px at 50% 45%, rgba(0, 0, 0, 0.42), transparent 60%);
+  filter: blur(14px) saturate(120%);
+  opacity: 0.9;
+}
+
+/* ================= LEFT ================= */
+.hero-content {
+  max-width: 860px;
+}
+
 .hero-content h1 {
-  font-size: 3.0rem;
-  font-weight: 800;
-  line-height: 1.5;
-  margin-bottom: 20px;
-  color: #ffffff;
+  font-size: clamp(2.2rem, 3.2vw, 3.4rem);
+  font-weight: 850;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.96);
+  text-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
 }
 
+/* Accent premium (gradient text) */
 .hero-content h1 span {
-  color: #ffc74c; /* accent jaune oil */
+  color: #ffc74c; /* fallback */
+  background: linear-gradient(90deg, #ffc74c, rgba(255, 215, 120, 0.9), rgba(255, 170, 80, 0.95));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 26px rgba(255, 199, 76, 0.18);
 }
 
 .hero-content p {
-  max-width: 1000px;
-  font-size: 1.5rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.85);
+  max-width: 60ch;
+  font-size: clamp(1.08rem, 1.35vw, 1.5rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.80);
   margin-bottom: 32px;
 }
 
-/* CTA */
+/* ================= CTA (PREMIUM) ================= */
 .hero-cta {
-  background: #ffc74c;
-  color: #1c1b18;
-  border: none;
-  padding: 14px 32px;
-  border-radius: 999px;
-  font-size: 1rem;
-  font-weight: 800;
-  cursor: pointer;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.10);
 
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* Premium gradient button */
+  background:
+    radial-gradient(120% 180% at 20% 10%, rgba(255, 255, 255, 0.35), transparent 45%),
+    linear-gradient(180deg, #ffd47a 0%, #ffc74c 55%, #ffb84b 100%);
+
+  color: #1c1b18;
+
+  padding: 14px 34px;
+  border-radius: 999px;
+
+  font-size: 0.98rem;
+  font-weight: 850;
+  letter-spacing: 0.02em;
+
+  cursor: pointer;
+  transform: translateZ(0);
+
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(255, 199, 76, 0.12) inset;
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+/* Sheen sweep */
+.hero-cta::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(199, 199, 199, 0.35) 18%,
+    transparent 38%
+  );
+  transform: translateX(0%);
+  opacity: 0;
+  transition: transform 520ms ease, opacity 220ms ease;
 }
 
 .hero-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.45);
+  filter: brightness(1.02);
+  box-shadow:
+    0 26px 70px rgba(0, 0, 0, 0.52),
+    0 0 0 1px rgba(255, 199, 76, 0.18) inset;
 }
 
-/* RIGHT */
+.hero-cta:hover::after {
+  opacity: 1;
+  transform: translateX(40%);
+}
+
+.hero-cta:active {
+  transform: translateY(0px);
+  filter: brightness(0.99);
+}
+
+/* Focus premium (clavier) */
+.hero-cta:focus-visible {
+  outline: 2px solid rgba(255, 210, 140, 0.60);
+  outline-offset: 4px;
+}
+
+/* ================= RIGHT (VISUAL PREMIUM) ================= */
 .hero-visual {
   position: relative;
   display: flex;
@@ -57,19 +146,69 @@
   align-items: center;
 }
 
+/* Glow behind image */
+.hero-visual::before {
+  content: "";
+  position: absolute;
+  width: min(560px, 86%);
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: -1;
+
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 215, 120, 0.22), transparent 52%),
+    radial-gradient(circle at 65% 70%, rgba(255, 170, 80, 0.18), transparent 58%),
+    radial-gradient(circle at 50% 50%, rgba(255, 190, 70, 0.14), transparent 60%);
+
+  filter: blur(18px);
+  opacity: 0.95;
+}
+
+/* Optional “frame glass” around the image if you want */
+.hero-visual .visual-frame {
+  border-radius: 24px;
+  padding: 14px;
+  background: rgba(20, 19, 17, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.40);
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero-visual .visual-frame {
+    backdrop-filter: blur(14px) saturate(125%);
+    -webkit-backdrop-filter: blur(14px) saturate(125%);
+  }
+}
+
 .hero-visual img {
   max-width: 620px;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.45));
+
+  border-radius: 18px;
+
+  /* Premium depth (shape-aware) */
+  filter:
+    drop-shadow(0 34px 70px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 10px 26px rgba(0, 0, 0, 0.35));
 }
 
-/* RESPONSIVE */
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1100px) {
+  .hero {
+    grid-template-columns: 1fr 0.95fr;
+  }
+}
+
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
-    padding: 60px 24px 40px;
+  }
+
+  .hero-content {
+    margin: 0 auto;
   }
 
   .hero-content p {
@@ -78,6 +217,22 @@
   }
 
   .hero-visual {
-    margin-top: 40px;
+    margin-top: 34px;
+  }
+
+  .hero-visual::before {
+    width: min(520px, 92%);
+  }
+}
+
+/* ================= REDUCED MOTION (A11Y) ================= */
+@media (prefers-reduced-motion: reduce) {
+  .hero-cta,
+  .hero-cta::after {
+    transition: none !important;
+  }
+  .hero-cta::after {
+    opacity: 0 !important;
+    transform: none !important;
   }
 }
