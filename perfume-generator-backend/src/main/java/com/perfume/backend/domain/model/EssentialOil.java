@@ -18,7 +18,8 @@ public class EssentialOil {
      * Nom unique de l'huile essentielle.
      * Exemple : Citron, Lavande, Patchouli
      */
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
+
     private String name;
 
     /**
@@ -51,7 +52,7 @@ public class EssentialOil {
     /**
      * URL ou chemin de l'image de l'huile essentielle
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 80)
     private String imageUrl;
 
     protected EssentialOil() {
