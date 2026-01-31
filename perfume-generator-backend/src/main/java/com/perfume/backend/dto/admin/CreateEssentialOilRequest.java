@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
 
 /**
  * DTO utilisé par l'admin pour créer ou modifier
@@ -14,7 +15,8 @@ import jakarta.validation.constraints.Size;
 public class CreateEssentialOilRequest {
 
     @NotBlank(message = "Le nom de l'huile est obligatoire.")
-    @Size(max = 50, message = "Le nom ne doit pas dépasser 50 caractères.")
+    @Size(min = 2, max = 50, message = "Le nom doit faire entre 2 et 50 caractères.")
+    @Pattern(regexp = "^[\\p{L}][\\p{L}\\p{M} '\\-]{1,49}$", message = "Nom invalide (lettres, espaces, tirets et apostrophes uniquement).")
     private String name;
 
     @NotNull(message = "Le type de note est obligatoire.")
@@ -33,6 +35,8 @@ public class CreateEssentialOilRequest {
     private int maxPercent;
 
     @NotBlank(message = "L'image est obligatoire.")
+    @Size(max = 80, message = "Nom de fichier image trop long.")
+    @Pattern(regexp = "^[a-f0-9\\-]{36}\\.(png|jpg|webp)$", message = "Nom de fichier image invalide.")
     private String imageUrl;
 
     // =====================
