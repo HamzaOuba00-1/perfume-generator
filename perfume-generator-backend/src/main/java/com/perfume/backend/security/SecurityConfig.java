@@ -24,13 +24,20 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // ✅ OBLIGATOIRE pour Angular (CORS)
+
+            .headers(headers -> headers
+            .contentTypeOptions(Customizer.withDefaults())
+            .xssProtection(xss -> xss.disable()) 
+            .frameOptions(frame -> frame.sameOrigin()))
+
+            
+            // OBLIGATOIRE pour Angular (CORS)
             .cors(Customizer.withDefaults())
 
-            // ✅ API REST → CSRF désactivé
+            // API REST → CSRF désactivé
             .csrf(csrf -> csrf.disable())
 
-            // 🔐 Règles d'accès
+            // Règles d'accès
             .authorizeHttpRequests(auth -> auth
 
                 .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
@@ -54,14 +61,14 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
 
-            // 🔑 Authentification Basic
+            // Authentification Basic
             .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
 
     /**
-     * 👤 Utilisateur admin en mémoire (projet académique)
+     * Utilisateur admin en mémoire (projet académique)
      */
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
@@ -76,7 +83,7 @@ public class SecurityConfig {
     }
 
     /**
-     * 🔑 Encoder de mot de passe
+     *  Encoder de mot de passe
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
