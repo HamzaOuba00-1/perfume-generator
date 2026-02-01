@@ -4,5 +4,5 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DatabaseConfig {
-    // Configuration future (PostgreSQL, profiles, etc.)
+    // Configuration future (PostgreSQL)
 }
