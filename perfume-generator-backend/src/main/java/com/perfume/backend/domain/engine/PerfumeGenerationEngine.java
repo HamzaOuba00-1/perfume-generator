@@ -104,7 +104,6 @@ public class PerfumeGenerationEngine {
             return;
         }
 
-        // Corrige sur la première huile (déterministe)
         EssentialOil firstKey = result.keySet().iterator().next();
         result.put(firstKey, result.get(firstKey) + difference);
     }
