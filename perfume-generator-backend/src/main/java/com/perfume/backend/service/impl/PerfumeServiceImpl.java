@@ -29,12 +29,12 @@ public class PerfumeServiceImpl implements PerfumeService {
     @Override
     public PerfumeRecipe generatePerfume(List<String> oilNames) {
 
-        // 1️⃣ Validation simple
+        //  Validation simple
         if (oilNames == null || oilNames.isEmpty()) {
             throw new BusinessException("La liste des huiles ne peut pas être vide.");
         }
 
-        // 2️⃣ Récupération des huiles depuis la base
+        // Récupération des huiles depuis la base
         List<EssentialOil> oils = new ArrayList<>();
 
         for (String name : oilNames) {
@@ -47,7 +47,7 @@ public class PerfumeServiceImpl implements PerfumeService {
             oils.add(oil);
         }
 
-        // 3️⃣ Appel du moteur métier
+        //  Appel du moteur métier
         return perfumeGenerationEngine.generate(oils);
     }
 }

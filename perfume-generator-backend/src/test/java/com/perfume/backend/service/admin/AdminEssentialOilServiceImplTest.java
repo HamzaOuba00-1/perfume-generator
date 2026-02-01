@@ -16,6 +16,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 class AdminEssentialOilServiceImplTest {
@@ -23,19 +24,24 @@ class AdminEssentialOilServiceImplTest {
     @Mock
     private EssentialOilRepository essentialOilRepository;
 
+    @Mock
+    private AdminImageStorageService storageService; // ✅ ADD THIS
+
     @InjectMocks
     private AdminEssentialOilServiceImpl service;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        // ✅ default behavior for all tests
+        when(storageService.oilImageExists(anyString())).thenReturn(true);
     }
 
     // =========================
     // CREATE
     // =========================
 
-    @SuppressWarnings("null")
     @Test
     void createOil_shouldCreateOil_whenValidRequest() {
         CreateEssentialOilRequest request = buildRequest("Citron");
@@ -51,9 +57,9 @@ class AdminEssentialOilServiceImplTest {
         assertNotNull(result);
         assertEquals("Citron", result.getName());
         verify(essentialOilRepository).save(any(EssentialOil.class));
+        verify(storageService).oilImageExists("image.png");
     }
 
-    @SuppressWarnings("null")
     @Test
     void createOil_shouldThrowException_whenNameAlreadyExists() {
         CreateEssentialOilRequest request = buildRequest("Citron");
@@ -61,8 +67,7 @@ class AdminEssentialOilServiceImplTest {
         when(essentialOilRepository.findByNameIgnoreCase("Citron"))
                 .thenReturn(Optional.of(mock(EssentialOil.class)));
 
-        assertThrows(BusinessException.class,
-                () -> service.createOil(request));
+        assertThrows(BusinessException.class, () -> service.createOil(request));
 
         verify(essentialOilRepository, never()).save(any());
     }
@@ -71,7 +76,6 @@ class AdminEssentialOilServiceImplTest {
     // UPDATE
     // =========================
 
-    @SuppressWarnings("null")
     @Test
     void updateOil_shouldUpdateOil_whenValid() {
         CreateEssentialOilRequest request = buildRequest("Lavande");
@@ -93,6 +97,7 @@ class AdminEssentialOilServiceImplTest {
 
         assertEquals("Lavande", result.getName());
         verify(essentialOilRepository).save(existing);
+        verify(storageService).oilImageExists("image.png");
     }
 
     @Test

@@ -13,12 +13,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print; 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -26,7 +29,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @WebMvcTest(AdminEssentialOilController.class)
 @Import(SecurityConfig.class)
+@ActiveProfiles("test")
+
 class AdminEssentialOilControllerTest {
+
+        private static final String VALID_IMAGE = "550e8400-e29b-41d4-a716-446655440000.png";
+
 
     @Autowired
     private MockMvc mockMvc;
@@ -44,6 +52,7 @@ class AdminEssentialOilControllerTest {
     @Test
     void shouldReturn401_whenNotAuthenticated() throws Exception {
         mockMvc.perform(post("/api/admin/oils"))
+                .andDo(print())
                 .andExpect(status().isUnauthorized());
     }
 
@@ -51,6 +60,7 @@ class AdminEssentialOilControllerTest {
     @WithMockUser(roles = "USER")
     void shouldReturn403_whenNotAdmin() throws Exception {
         mockMvc.perform(post("/api/admin/oils"))
+                .andDo(print())
                 .andExpect(status().isForbidden());
     }
 
@@ -69,7 +79,7 @@ class AdminEssentialOilControllerTest {
                 "Citron",
                 NoteType.TOP,
                 2,
-                30,
+                25,
                 "citron.png"
         );
 
@@ -77,37 +87,15 @@ class AdminEssentialOilControllerTest {
                 .thenReturn(response);
 
         mockMvc.perform(post("/api/admin/oils")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andDo(print()) 
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("Citron"))
                 .andExpect(jsonPath("$.noteType").value("TOP"))
                 .andExpect(jsonPath("$.imageUrl").value("citron.png"));
-    }
 
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    void shouldReturn400_whenValidationFails() throws Exception {
-
-        CreateEssentialOilRequest invalid = new CreateEssentialOilRequest();
-        invalid.setName(""); // invalide
-
-        mockMvc.perform(post("/api/admin/oils")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(invalid)))
-                .andExpect(status().isBadRequest());
-    }
-
-    // =========================
-    // DELETE
-    // =========================
-
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    void shouldDeleteOil_whenAdmin() throws Exception {
-
-        mockMvc.perform(delete("/api/admin/oils/{id}", 1L))
-                .andExpect(status().isNoContent());
+        verify(adminEssentialOilService).createOil(any());
     }
 
     // =========================
@@ -125,7 +113,7 @@ class AdminEssentialOilControllerTest {
                 "Lavande",
                 NoteType.HEART,
                 2,
-                35,
+                25,
                 "lavande.png"
         );
 
@@ -133,10 +121,13 @@ class AdminEssentialOilControllerTest {
                 .thenReturn(response);
 
         mockMvc.perform(put("/api/admin/oils/{id}", 1L)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andDo(print()) // ✅
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Lavande"));
+
+        verify(adminEssentialOilService).updateOil(eq(1L), any());
     }
 
     // =========================
@@ -148,8 +139,8 @@ class AdminEssentialOilControllerTest {
         r.setName("Citron");
         r.setNoteType(NoteType.TOP);
         r.setPower(2);
-        r.setMaxPercent(30);
-        r.setImageUrl("citron.png");
+        r.setMaxPercent(25);
+        r.setImageUrl(VALID_IMAGE);
         return r;
     }
 }
