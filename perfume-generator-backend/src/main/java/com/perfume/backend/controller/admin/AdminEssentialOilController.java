@@ -22,7 +22,7 @@ public class AdminEssentialOilController {
     }
 
     /**
-     * ➕ Ajouter une nouvelle huile essentielle
+     * Ajouter une nouvelle huile essentielle
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -33,7 +33,7 @@ public class AdminEssentialOilController {
     }
 
     /**
-     * ✏️ Modifier une huile existante
+     * Modifier une huile existante
      */
     @PutMapping("/{id}")
     public EssentialOilDto updateOil(
@@ -44,7 +44,7 @@ public class AdminEssentialOilController {
     }
 
     /**
-     * 🗑️ Supprimer une huile essentielle
+     * Supprimer une huile essentielle
      */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
