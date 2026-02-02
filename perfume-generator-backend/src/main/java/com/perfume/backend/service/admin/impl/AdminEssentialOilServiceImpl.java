@@ -7,95 +7,94 @@ import com.perfume.backend.exception.BusinessException;
 import com.perfume.backend.mapper.EssentialOilMapper;
 import com.perfume.backend.repository.EssentialOilRepository;
 import com.perfume.backend.service.admin.AdminEssentialOilService;
-
+import com.perfume.backend.service.admin.AdminImageStorageService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Implémentation du service admin pour la gestion
- * des huiles essentielles.
- */
 @Service
 @Transactional
 public class AdminEssentialOilServiceImpl implements AdminEssentialOilService {
 
     private final EssentialOilRepository essentialOilRepository;
+    private final AdminImageStorageService storageService;
 
-    public AdminEssentialOilServiceImpl(EssentialOilRepository essentialOilRepository) {
+    public AdminEssentialOilServiceImpl(
+            EssentialOilRepository essentialOilRepository,
+            AdminImageStorageService storageService
+    ) {
         this.essentialOilRepository = essentialOilRepository;
+        this.storageService = storageService;
     }
 
-    /**
-     * ➕ Création d'une huile essentielle
-     */
+    private String normalizeName(String s) {
+        if (s == null) return null;
+        return s.trim().replaceAll("\\s{2,}", " ");
+    }
+
     @Override
     public EssentialOilDto createOil(CreateEssentialOilRequest request) {
+        String name = normalizeName(request.getName());
+        String imageUrl = request.getImageUrl() == null ? null : request.getImageUrl().trim();
 
-        // 🔒 Vérifie unicité du nom
-        essentialOilRepository.findByNameIgnoreCase(request.getName())
-                .ifPresent(oil -> {
-                    throw new BusinessException(
-                            "Une huile essentielle avec ce nom existe déjà."
-                    );
+        if (imageUrl == null || imageUrl.isBlank()) {
+            throw new BusinessException("L'image est obligatoire.");
+        }
+
+        if (!storageService.oilImageExists(imageUrl)) {
+            throw new BusinessException("Image introuvable. Veuillez uploader l'image.");
+        }
+
+        essentialOilRepository.findByNameIgnoreCase(name)
+                .ifPresent(o -> {
+                    throw new BusinessException("Une huile essentielle avec ce nom existe déjà.");
                 });
 
         EssentialOil oil = new EssentialOil(
-                request.getName(),
+                name,
                 request.getNoteType(),
                 request.getPower(),
                 request.getMaxPercent(),
-                request.getImageUrl()
+                imageUrl
         );
 
-        EssentialOil saved = essentialOilRepository.save(oil);
-
-        return EssentialOilMapper.toDto(saved);
+        return EssentialOilMapper.toDto(essentialOilRepository.save(oil));
     }
 
-    /**
-     * ✏️ Mise à jour d'une huile essentielle
-     */
     @Override
     public EssentialOilDto updateOil(Long id, CreateEssentialOilRequest request) {
-
         EssentialOil oil = essentialOilRepository.findById(id)
-                .orElseThrow(() ->
-                        new BusinessException("Huile essentielle introuvable.")
-                );
+                .orElseThrow(() -> new BusinessException("Huile essentielle introuvable."));
 
-        // 🔒 Vérifie unicité du nom (si changé)
-        essentialOilRepository.findByNameIgnoreCase(request.getName())
+        String name = normalizeName(request.getName());
+        String imageUrl = request.getImageUrl() == null ? null : request.getImageUrl().trim();
+
+        if (imageUrl == null || imageUrl.isBlank()) {
+            throw new BusinessException("L'image est obligatoire.");
+        }
+
+        if (!storageService.oilImageExists(imageUrl)) {
+            throw new BusinessException("Image introuvable. Veuillez uploader l'image.");
+        }
+
+        essentialOilRepository.findByNameIgnoreCase(name)
                 .filter(existing -> !existing.getId().equals(id))
                 .ifPresent(existing -> {
-                    throw new BusinessException(
-                            "Une autre huile essentielle porte déjà ce nom."
-                    );
+                    throw new BusinessException("Une autre huile essentielle porte déjà ce nom.");
                 });
 
-        // Mise à jour contrôlée
-        oil.setName(request.getName());
+        oil.setName(name);
         oil.setNoteType(request.getNoteType());
         oil.setPower(request.getPower());
         oil.setMaxPercent(request.getMaxPercent());
-        oil.setImageUrl(request.getImageUrl());
+        oil.setImageUrl(imageUrl);
 
-        EssentialOil updated = essentialOilRepository.save(oil);
-
-        return EssentialOilMapper.toDto(updated);
+        return EssentialOilMapper.toDto(essentialOilRepository.save(oil));
     }
 
-    /**
-     * 🗑️ Suppression d'une huile essentielle
-     */
-    @SuppressWarnings("null")
-@Override
+    @Override
     public void deleteOil(Long id) {
-
         EssentialOil oil = essentialOilRepository.findById(id)
-                .orElseThrow(() ->
-                        new BusinessException("Huile essentielle introuvable.")
-                );
-
+                .orElseThrow(() -> new BusinessException("Huile essentielle introuvable."));
         essentialOilRepository.delete(oil);
     }
 }

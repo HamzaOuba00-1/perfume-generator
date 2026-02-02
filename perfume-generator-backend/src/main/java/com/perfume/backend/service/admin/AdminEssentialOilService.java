@@ -19,7 +19,7 @@ public interface AdminEssentialOilService {
     EssentialOilDto createOil(CreateEssentialOilRequest request);
 
     /**
-     * ✏️ Mettre à jour une huile essentielle existante.
+     *  Mettre à jour une huile essentielle existante.
      *
      * @param id identifiant de l'huile
      * @param request nouvelles données
@@ -28,7 +28,7 @@ public interface AdminEssentialOilService {
     EssentialOilDto updateOil(Long id, CreateEssentialOilRequest request);
 
     /**
-     * 🗑️ Supprimer une huile essentielle.
+     *  Supprimer une huile essentielle.
      *
      * @param id identifiant de l'huile
      */
