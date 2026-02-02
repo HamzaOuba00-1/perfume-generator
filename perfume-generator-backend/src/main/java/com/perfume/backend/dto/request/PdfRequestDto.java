@@ -6,7 +6,6 @@ public class PdfRequestDto {
 
     private List<OilLine> oils;
 
-    /** volume total du concentré aromatique (ex: 5, 10, 15, 20 ml) */
     private int volume;
 
     public List<OilLine> getOils() {
@@ -29,7 +28,6 @@ public class PdfRequestDto {
         private String name;
         private double percent;
 
-        /** filename stocké en DB (ex: lavande.png ou uuid.png) */
         private String imageUrl;
 
         public String getName() {

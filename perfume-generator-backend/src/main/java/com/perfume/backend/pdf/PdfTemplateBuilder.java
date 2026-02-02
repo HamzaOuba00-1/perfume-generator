@@ -4,6 +4,8 @@ import com.perfume.backend.dto.request.PdfRequestDto;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Objects;
 
 public class PdfTemplateBuilder {
 
@@ -14,8 +16,11 @@ public class PdfTemplateBuilder {
 
         String date = LocalDate.now().format(DATE_FMT);
 
-        String oilsHtml = dto.getOils().stream()
-                .map(PdfTemplateBuilder::oilCard)
+        List<PdfRequestDto.OilLine> oils = dto.getOils() == null ? List.of() : dto.getOils();
+
+        String oilsRowsHtml = oils.stream()
+                .filter(Objects::nonNull)
+                .map(PdfTemplateBuilder::oilRow)
                 .reduce("", String::concat);
 
         return String.format("""
@@ -26,85 +31,128 @@ public class PdfTemplateBuilder {
 <style>
 body {
   margin: 0;
-  padding: 40px;
-  background: #f5f5f5;
+  padding: 10px;
+
+  background: #f3b422;
+
   font-family: Arial, sans-serif;
+  color: #111;
 }
 
 .panel {
   max-width: 820px;
   margin: auto;
-  background: #f3b422;
+  background: #ffffff;
   border-radius: 22px;
-  padding: 28px;
+  padding: 26px;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 100%%;
+  display: table;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #111;
+  margin-bottom: 18px;
 }
+
+.header-left,
+.header-right {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.header-left { text-align: left; }
+.header-right { text-align: right; }
 
 .logo {
-  font-size: 1.4rem;
+  font-size: 1.55rem;
   font-weight: 900;
+  color: #111;
 }
 
-.logo span { color: white; }
+.logo span { color: #f3b422; }
+
+.tagline {
+  margin-top: 4px;
+  font-size: 0.82rem;
+  color: #444;
+  font-weight: 600;
+}
 
 .date {
-  font-weight: 700;
+  font-weight: 900;
   font-size: 0.9rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #111;
 }
+
 
 h1 {
   text-align: center;
-  margin: 18px 0 22px;
+  margin: 18px 0 14px;
+  font-size: 1.30rem;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-}
-
-.oil-card {
-  background: rgba(255,255,255,0.6);
-  border-radius: 14px;
-  padding: 12px;
-  text-align: center;
-}
-
-.oil-name {
+/* tables premium mais simples */
+.table-title {
+  margin-top: 14px;
   font-weight: 900;
-}
-
-.oil-percent {
-  font-weight: 800;
-  margin-top: 6px;
+  font-size: 1rem;
+  color: #111;
 }
 
 table {
   width: 100%%;
+  show
   border-collapse: collapse;
-  margin-top: 18px;
-  background: rgba(255,255,255,0.6);
+  margin-top: 10px;
+  background: #fff;
+  border: 2px solid #111;
 }
 
 thead th {
   background: #ffc74c;
   padding: 10px;
+  font-weight: 900;
+  text-align: left;
+  border-bottom: 2px solid #111;
 }
 
 tbody td {
   padding: 10px;
-  border-top: 1px solid rgba(0,0,0,0.1);
+  border-top: 1px solid rgba(0,0,0,0.12);
+  font-size: 0.9rem;
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(0,0,0,0.04);
+}
+
+td.percent, th.percent {
+  text-align: right;
+  width: 28%%;
+  font-weight: 900;
+}
+
+.oils-name {
+  font-weight: 900;
+}
+
+.note {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: #444;
 }
 
 .footer {
-  margin-top: 22px;
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 2px solid #111;
   text-align: center;
   font-size: 0.75rem;
+  color: #444;
 }
 </style>
 </head>
@@ -113,51 +161,79 @@ tbody td {
 <div class="panel">
 
   <div class="header">
-    <div class="logo">Scent<span>Lab</span></div>
-    <div class="date">%s</div>
+    <div class="header-left">
+      <div class="logo">Parfu<span>ma</span></div>
+      <div class="tagline">Premium fragrance formula sheet</div>
+    </div>
+    <div class="header-right">
+      <div class="date">%s</div>
+    </div>
   </div>
 
   <h1>Your Generated Fragrance Formula</h1>
 
-  <div class="grid">
-    %s
+  <div class="table-title">Oils breakdown</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th class="percent">Percentage</th>
+      </tr>
+    </thead>
+    <tbody>
+      %s
+    </tbody>
+  </table>
+
+  <div class="note">
+    Percentages are indicative and depend on your final dilution and maturation.
   </div>
 
+  <div class="table-title" style="margin-top:16px;">Dilution guide</div>
   <table>
     <thead>
       <tr>
         <th>Fragrance Type</th>
-        <th>Concentrate</th>
-        <th>Alcohol</th>
+        <th class="percent">Concentrate</th>
+        <th class="percent">Alcohol</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td>Cologne</td><td>3–5%%</td><td>95–97%%</td></tr>
-      <tr><td>Eau de Toilette</td><td>10–12%%</td><td>88–90%%</td></tr>
-      <tr><td>Eau de Parfum</td><td>15–20%%</td><td>80–85%%</td></tr>
-      <tr><td>Perfume</td><td>20–30%%</td><td>70–80%%</td></tr>
+      <tr><td>Cologne</td><td class="percent">3–5%%</td><td class="percent">95–97%%</td></tr>
+      <tr><td>Eau de Toilette</td><td class="percent">10–12%%</td><td class="percent">88–90%%</td></tr>
+      <tr><td>Eau de Parfum</td><td class="percent">15–20%%</td><td class="percent">80–85%%</td></tr>
+      <tr><td>Perfume</td><td class="percent">20–30%%</td><td class="percent">70–80%%</td></tr>
     </tbody>
   </table>
 
   <div class="footer">
-    Generated by ScentLab — Experimental fragrance assistant
+    Generated by Parfuma — Experimental fragrance assistant
   </div>
 
 </div>
 </body>
 </html>
-""", date, oilsHtml);
+""", date, oilsRowsHtml);
     }
 
-    private static String oilCard(PdfRequestDto.OilLine oil) {
+    private static String oilRow(PdfRequestDto.OilLine oil) {
+        String name = oil.getName() == null ? "" : oil.getName();
+        Double p = oil.getPercent();
+        double percent = p == null ? 0.0 : p;
+
         return String.format("""
-<div class="oil-card">
-  <div class="oil-name">%s</div>
-  <div class="oil-percent">%.1f%%</div>
-</div>
-""",
-        oil.getName(),
-        oil.getPercent()
-        );
+<tr>
+  <td class="oils-name">%s</td>
+  <td class="percent">%.1f%%</td>
+</tr>
+""", escapeHtml(name), percent);
+    }
+
+    private static String escapeHtml(String s) {
+        return s.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;")
+                .replace("'", "&#39;");
     }
 }

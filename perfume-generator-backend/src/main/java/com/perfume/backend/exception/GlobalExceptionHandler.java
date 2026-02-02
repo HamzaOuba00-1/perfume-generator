@@ -35,25 +35,19 @@ public class GlobalExceptionHandler {
      * Erreurs de validation (@Valid sur les DTO).
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationException(
-            MethodArgumentNotValidException ex) {
+public ResponseEntity<Map<String, Object>> handleValidationException(MethodArgumentNotValidException ex) {
 
-        Map<String, String> response = new HashMap<>();
-        response.put("error", "VALIDATION_ERROR");
+    Map<String, String> fields = new HashMap<>();
+    ex.getBindingResult().getFieldErrors()
+        .forEach(err -> fields.put(err.getField(), err.getDefaultMessage()));
 
-        String message = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .findFirst()
-                .map(err -> err.getField() + " : " + err.getDefaultMessage())
-                .orElse("Validation invalide");
+    Map<String, Object> response = new HashMap<>();
+    response.put("error", "VALIDATION_ERROR");
+    response.put("message", "Validation invalide");
+    response.put("fields", fields);
 
-        response.put("message", message);
-
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(response);
-    }
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+}
 
     /**
      * Erreurs inattendues (fallback).

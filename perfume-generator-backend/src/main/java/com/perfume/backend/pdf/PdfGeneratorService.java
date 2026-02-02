@@ -20,7 +20,9 @@ public class PdfGeneratorService {
             String html = PdfTemplateBuilder.build(dto);
 
             PdfRendererBuilder builder = new PdfRendererBuilder();
-            builder.withHtmlContent(html, null);
+
+            builder.withHtmlContent(html, "http://localhost:8080/");
+
             builder.toStream(out);
             builder.run();
 

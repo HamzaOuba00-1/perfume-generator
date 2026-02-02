@@ -40,6 +40,7 @@ public final class PerfumeMapper {
         return new OilPercentageDto(
                 entry.getKey().getName(),
                 entry.getValue()
+                , entry.getKey().getImageUrl()
         );
     }
 }
