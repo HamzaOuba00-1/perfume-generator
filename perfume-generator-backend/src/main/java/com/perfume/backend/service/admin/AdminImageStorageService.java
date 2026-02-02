@@ -10,4 +10,7 @@ public interface AdminImageStorageService {
      * @return nom du fichier stocké
      */
     String storeOilImage(MultipartFile file);
+
+    boolean oilImageExists(String filename);
+
 }
