@@ -1,295 +1,31 @@
-/* =========================================
-   PREMIUM SPECTRAL THEME (Angular component)
-   ========================================= */
-
-/* Base tokens (facile à retoucher) */
 :host {
-  /* Layout */
   position: relative;
   min-height: 100vh;
   display: block;
-  overflow: hidden;
+  overflow-x: hidden;
 
-  /* Theme */
-  color-scheme: dark;
-  --bg-0: #141311;
-  --bg-1: #1c1b18;
-  --bg-2: #2a241c;
-  --bg-3: #3a2f1f;
+  color: rgba(255, 255, 255, 0.88);
 
-  --text: rgba(245, 242, 235, 0.92);
-  --text-dim: rgba(245, 242, 235, 0.72);
-
-  --accent-1: rgba(255, 170, 80, 0.58);
-  --accent-2: rgba(255, 215, 120, 0.46);
-  --accent-3: rgba(255, 190, 70, 0.55);
-
-  --ring: rgba(255, 210, 140, 0.55);
-  --ring-strong: rgba(255, 220, 160, 0.8);
-
-  --radius: 18px;
-  --radius-lg: 24px;
-
-  --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.25);
-  --shadow-md: 0 18px 50px rgba(0, 0, 0, 0.35);
-  --shadow-hi: 0 28px 90px rgba(0, 0, 0, 0.52);
-
-  /* Typo rendering */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: geometricPrecision;
-
-  /* Text */
-  color: var(--text);
-
-  /* Premium spectral background */
   background:
-    radial-gradient(1200px 650px at 12% 22%, var(--accent-1), transparent 62%),
-    radial-gradient(900px 520px at 82% 16%, var(--accent-2), transparent 66%),
-    radial-gradient(1100px 720px at 48% 88%, var(--accent-3), transparent 72%),
-    conic-gradient(
-      from 235deg at 50% 40%,
-      rgba(255, 190, 70, 0.10),
-      rgba(255, 170, 80, 0.06),
-      rgba(255, 215, 120, 0.09),
-      rgba(255, 190, 70, 0.10)
-    ),
-    linear-gradient(120deg, var(--bg-1) 0%, var(--bg-2) 35%, var(--bg-3) 65%, var(--bg-0) 100%);
-
-  /* Blend pour un rendu plus “cinematic” */
-  background-blend-mode: screen, screen, screen, overlay, normal;
-
-  /* Subtle depth */
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    radial-gradient(900px 520px at 18% 22%, rgba(255, 185, 90, 0.22), transparent 68%),
+    radial-gradient(900px 520px at 82% 18%, rgba(255, 215, 120, 0.16), transparent 70%),
+    linear-gradient(125deg, #141311 0%, #221c15 45%, #141311 100%);
 }
 
-/* =========================================================
-   Grain / Noise layer (ton SVG conservé + un peu plus clean)
-   ========================================================= */
 :host::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  pointer-events: none;
-
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-  mix-blend-mode: soft-light;
-  opacity: 0.85;
-
-  /* évite le banding sur certains écrans */
-  filter: contrast(110%) brightness(108%);
-  transform: translateZ(0);
-}
-
-/* =========================================================
-   Aurora + vignette (profondeur premium + mouvement subtil)
-   ========================================================= */
-:host::after {
-  content: "";
-  position: absolute;
-  inset: -25%;
-  pointer-events: none;
-
-  background:
-    radial-gradient(900px 520px at 18% 30%, rgba(255, 170, 80, 0.22), transparent 62%),
-    radial-gradient(820px 520px at 82% 20%, rgba(255, 215, 120, 0.18), transparent 68%),
-    radial-gradient(1000px 650px at 50% 88%, rgba(255, 190, 70, 0.20), transparent 70%),
-    radial-gradient(1200px 900px at 50% 50%, rgba(255, 255, 255, 0.06), transparent 60%),
-    radial-gradient(1400px 900px at 50% 50%, rgba(0, 0, 0, 0.55), transparent 60%);
-
-  /* Un voile doux + vignette */
-  mix-blend-mode: soft-light;
-  opacity: 0.9;
-
-  /* Glow premium */
-  filter: blur(12px) saturate(120%);
-
-  /* Animation très légère */
-  animation: aurora-drift 14s ease-in-out infinite alternate;
-  will-change: transform, opacity;
-}
-
-@keyframes aurora-drift {
-  0%   { transform: translate3d(-1.5%, -0.8%, 0) scale(1.02); opacity: 0.82; }
-  50%  { transform: translate3d( 1.2%,  0.6%, 0) scale(1.03); opacity: 0.92; }
-  100% { transform: translate3d(-0.6%,  1.1%, 0) scale(1.02); opacity: 0.86; }
-}
-
-/* =========================================
-   Premium surfaces (cards, panels, modals)
-   Utilise: <div class="glass-card">...</div>
-   ========================================= */
-:host .glass-card,
-:host .glass-panel {
-  position: relative;
-  border-radius: var(--radius-lg);
-  background: rgba(20, 19, 17, 0.46);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
-  transform: translateZ(0);
-
-  /* Micro-interactions */
-  transition:
-    transform 220ms ease,
-    box-shadow 220ms ease,
-    border-color 220ms ease,
-    background-color 220ms ease;
-}
-
-/* Glassmorphism (progressive enhancement) */
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  :host .glass-card,
-  :host .glass-panel {
-    background: rgba(20, 19, 17, 0.34);
-    backdrop-filter: blur(14px) saturate(120%);
-    -webkit-backdrop-filter: blur(14px) saturate(120%);
-  }
-}
-
-:host .glass-card::before,
-:host .glass-panel::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(900px 240px at 20% 0%, rgba(255, 255, 255, 0.08), transparent 55%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 38%);
-  opacity: 0.9;
+
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  z-index: 0;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.10'/%3E%3C/svg%3E");
 }
 
-/* Hover premium */
-:host .glass-card:hover,
-:host .glass-panel:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-hi);
-  border-color: rgba(255, 220, 160, 0.24);
-}
-
-/* =========================================
-   Inputs & Buttons (UX premium, focus visible)
-   ========================================= */
-:host .input,
-:host input,
-:host textarea,
-:host select {
-  background: rgba(18, 17, 15, 0.55);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 14px;
-  padding: 0.75rem 0.9rem;
-  outline: none;
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.25);
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-}
-
-:host .input::placeholder,
-:host input::placeholder,
-:host textarea::placeholder {
-  color: rgba(245, 242, 235, 0.48);
-}
-
-:host .input:focus,
-:host input:focus,
-:host textarea:focus,
-:host select:focus {
-  border-color: rgba(255, 220, 160, 0.30);
-  box-shadow:
-    0 0 0 4px rgba(255, 210, 140, 0.14),
-    0 14px 40px rgba(0, 0, 0, 0.35);
-  transform: translateY(-1px);
-}
-
-/* Focus visible (clavier) */
-:host :focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-/* Buttons */
-:host .btn,
-:host button {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 0.78rem 1.05rem;
-  color: var(--text);
-  background:
-    radial-gradient(120% 120% at 20% 10%, rgba(255, 215, 120, 0.18), transparent 55%),
-    radial-gradient(120% 120% at 80% 80%, rgba(255, 170, 80, 0.14), transparent 55%),
-    rgba(18, 17, 15, 0.55);
-  box-shadow: var(--shadow-sm);
-  cursor: pointer;
-
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease,
-    border-color 180ms ease,
-    filter 180ms ease;
-}
-
-:host .btn:hover,
-:host button:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-  border-color: rgba(255, 220, 160, 0.22);
-  filter: brightness(1.03);
-}
-
-:host .btn:active,
-:host button:active {
-  transform: translateY(0px);
-  filter: brightness(0.98);
-}
-
-/* =========================================
-   Scrollbar (si ton composant scroll)
-   ========================================= */
-:host .scroll,
-:host .scrollable {
-  overflow: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 220, 160, 0.35) rgba(255, 255, 255, 0.06);
-}
-
-:host .scroll::-webkit-scrollbar,
-:host .scrollable::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-:host .scroll::-webkit-scrollbar-track,
-:host .scrollable::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 999px;
-}
-
-:host .scroll::-webkit-scrollbar-thumb,
-:host .scrollable::-webkit-scrollbar-thumb {
-  background: rgba(255, 220, 160, 0.28);
-  border-radius: 999px;
-  border: 2px solid rgba(0, 0, 0, 0.25);
-}
-
-:host .scroll::-webkit-scrollbar-thumb:hover,
-:host .scrollable::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 220, 160, 0.40);
-}
-
-/* =========================================
-   Reduced motion (accessibilité)
-   ========================================= */
-@media (prefers-reduced-motion: reduce) {
-  :host::after {
-    animation: none;
-  }
-  :host .glass-card,
-  :host .glass-panel,
-  :host .btn,
-  :host button,
-  :host input,
-  :host textarea,
-  :host select {
-    transition: none !important;
-  }
+:host > * {
+  position: relative;
+  z-index: 1;
 }
