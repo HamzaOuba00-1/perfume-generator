@@ -1,8 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+
+
+:root {
+  --nav-h: 80px;
+  --anchor-gap: 16px;
+}
+
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + var(--anchor-gap));
   height: 100%;
 }
 
-body { height: 100%; }
+
+
+:root {
+  --nav-h: 60px;
+}
+
+
+body {
+height: 100%;
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

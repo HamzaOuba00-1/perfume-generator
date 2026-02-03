@@ -27,7 +27,7 @@ export class PerfumeService {
     );
   }
 
-  /** ✅ PDF = POST + body + blob */
+  /** PDF = POST + body + blob */
   downloadPdf(payload: {
     volume: number;
     oils: { name: string; percent: number }[];

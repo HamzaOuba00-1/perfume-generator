@@ -10,7 +10,7 @@ export class PerfumeStateService {
   private result?: PerfumeResponse;
 
   constructor() {
-    // ✅ restore depuis sessionStorage (si refresh)
+    // restore depuis sessionStorage (si refresh)
     this.result = this.loadFromStorage();
   }
 
@@ -20,7 +20,7 @@ export class PerfumeStateService {
   }
 
   getResult(): PerfumeResponse | undefined {
-    // ✅ si state vide mais storage existe, on restaure
+    // si state vide mais storage existe, on restaure
     if (!this.result) {
       this.result = this.loadFromStorage();
     }
