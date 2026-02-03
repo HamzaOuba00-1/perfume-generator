@@ -1,0 +1,32 @@
+<div class="admin-login">
+
+  <h1>Administration</h1>
+  <p class="subtitle">Restricted Access</p>
+
+  <form (ngSubmit)="login()" novalidate>
+
+    <div class="field">
+      <label>Username</label>
+      <input
+        type="text"
+        [(ngModel)]="username"
+        name="username"
+        required
+      />
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        required
+      />
+    </div>
+
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Logging in...' : 'Log In' }}
+    </button>
+
+    <p class="error" *ngIf="error">{{ error }}</p>

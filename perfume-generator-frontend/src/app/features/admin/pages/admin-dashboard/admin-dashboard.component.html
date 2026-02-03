@@ -1,0 +1,27 @@
+<div class="admin-dashboard">
+
+  <!-- Header -->
+  <header class="admin-header">
+    <h1>Admin Dashboard</h1>
+
+    <button class="logout" (click)="logout()">
+      Logout
+    </button>
+  </header>
+
+  <!-- Content -->
+  <main class="admin-content">
+
+    <section class="panel">
+      <h2>Add / Edit an Essential Oil</h2>
+      <app-admin-oil-form></app-admin-oil-form>
+    </section>
+
+    <section class="panel">
+      <h2>Existing Essential Oils</h2>
+      <app-admin-oil-list></app-admin-oil-list>
+    </section>
+
+  </main>
+
+</div>

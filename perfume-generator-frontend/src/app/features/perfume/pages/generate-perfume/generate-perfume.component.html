@@ -1,0 +1,25 @@
+<!-- HERO -->
+<section id="home">
+  <app-hero></app-hero>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <app-explain-system></app-explain-system>
+</section>
+
+<!-- START / SELECT OILS -->
+<section id="start">
+  <app-oil-selector
+    [oils]="oils"
+    [selectedOils]="selectedOils"
+    (toggleOil)="toggleOil($event)"
+    (generate)="generatePerfume()"
+  ></app-oil-selector>
+</section>
+
+<!-- MODALS -->
+<app-generation-conditions-modal
+  *ngIf="showConditionsModal"
+  (close)="showConditionsModal = false"
+></app-generation-conditions-modal>

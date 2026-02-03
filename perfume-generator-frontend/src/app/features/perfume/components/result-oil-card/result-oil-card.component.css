@@ -1,0 +1,84 @@
+:host {
+  display: inline-block;
+
+  --text: #494541;
+  --card: #fefaef;
+  --shell: rgba(255, 255, 255, 0.65);
+
+  --shadow: 0 16px 32px rgba(0, 0, 0, 0.14);
+  --shadow-hover: 0 22px 48px rgba(0, 0, 0, 0.18);
+}
+
+.r-card {
+  width: 150px;
+  border-radius: 28px;
+  background: var(--shell);
+  overflow: hidden;
+
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.r-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.r-hero {
+  background: #ffffff;
+  padding: 5px;
+
+  display: grid;
+  place-items: center;
+
+
+}
+
+.r-hero img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+
+  display: block;
+  background: #ffffff;
+  border-radius: 18px;
+}
+
+.r-body {
+  background: var(--card);
+  padding: 12px 14px 14px;
+  text-align: center;
+}
+
+/* Name */
+.r-name {
+  margin: 6px 0 8px;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.r-ml {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text);
+}
+
+/* Icon */
+.r-ico {
+  width: 14px;
+  height: 14px;
+  display: grid;
+  place-items: center;
+  opacity: 0.8;
+}
+
+/* Text */
+.r-ml-text {
+  font-size: 14px;
+  font-weight: 600;
+}
