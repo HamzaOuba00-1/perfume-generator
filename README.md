@@ -8,6 +8,11 @@ strength, maximum dosage limits) and produces a **ready-to-use recipe**, along w
 
 ---
 
+
+## 🎥 Demo Video
+
+[![PARFUMA Demo](https://img.youtube.com/vi/EwiQrWufMAE/0.jpg)](https://www.youtube.com/watch?v=EwiQrWufMAE)
+
 ## 🚀 Main Features
 
 ### 👤 User
